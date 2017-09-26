@@ -7,29 +7,45 @@ angular.module('LunchCheck', [])
 LunchCheckController.$inject = ['$scope'];
 function LunchCheckController($scope) {
 
-  $scope.message = "Lunch not Checked!";
+  var isNotEmptyString = function (string) {
+    if (typeof string == 'undefined') {
+      // string is undefined
+      return false;
+    } else if (string.trim().length == 0) {
+      // string has only spaces
+      return false;
+    } else {
+      // console.log("String: " + string + " is empty!")
+      return true;
+    }
+  }
+
+  var hasEmptyItems = function (array) {
+    var emptyItems = 0
+    for (var j = 0; j < array.length; j++){
+      if (!isNotEmptyString(array[j])) {
+        emptyItems += 1;
+      }
+    }
+    return emptyItems
+  }
+
+  var NumberOfLunchItems = 0;
 
   $scope.CheckLunch = function () {
     console.log("Checking Lunch started...");
     // Checking is string is empty or undefined
-    if (typeof $scope.Lunch != 'undefined' && $scope.Lunch) {
-      console.log(typeof $scope.Lunch)
+    if (isNotEmptyString($scope.Lunch)) {
       var LunchItems = $scope.Lunch.split(',')
-      console.log(LunchItems)
-      // Checing number of items
-      if (LunchItems.length <= 3) {
-        console.log("You ate " + LunchItems.length + " items!")
-        console.log("You are Ok!")
+      NumberOfLunchItems = LunchItems.length - hasEmptyItems(LunchItems)
+      // Checking number of items
+      if (NumberOfLunchItems <= 3) {
         $scope.message = "Enjoy!"
-      } else if (LunchItems.length >= 4) {
-        console.log("You ate " + LunchItems.length + " items!")
-        console.log("You are NOT Ok!")
+      } else if (NumberOfLunchItems >= 4) {
         $scope.message = "Too much!"
       }
-      console.log("Checking Lunch...")
     } else {
-      // Items was empty
-      console.log("Lunch is empty!");
+      // Items is empty
       $scope.message = "Please enter data first";
     }
   };
