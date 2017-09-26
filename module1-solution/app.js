@@ -41,11 +41,17 @@ function LunchCheckController($scope) {
       // Checking number of items
       if (NumberOfLunchItems <= 3) {
         $scope.message = "Enjoy!"
+        $scope.messageColor = { color : "green" }
+        $scope.borderColor = { border : "1px solid green" }
       } else if (NumberOfLunchItems >= 4) {
+        $scope.messageColor = { color : "green" }
+        $scope.borderColor = { border : "1px solid green" }
         $scope.message = "Too much!"
       }
     } else {
       // Items is empty
+      $scope.messageColor = { color : "red" }
+      $scope.borderColor = { border : "1px solid red" }
       $scope.message = "Please enter data first";
     }
   };
