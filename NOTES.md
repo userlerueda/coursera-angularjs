@@ -16,3 +16,5 @@ Model - Represents raw data
 View - UI that never changes data, declares events
 ViewModel - Data representation of the state of the UI
 AngularJS is not restricted to MVVM
+
+# Lecture 5
